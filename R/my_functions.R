@@ -390,3 +390,95 @@ cuenta_ejes <- function(df){
 }
 
 
+genera_espectros <- function(df){
+  
+  peso_maximo <- ceiling(df$gvw %>% max(na.rm = FALSE))
+  print(getwd())
+  print(peso_maximo)
+  
+  limite_inferior <- seq(0,peso_maximo-1)
+  limite_superior <- seq(1,peso_maximo)
+  marca_de_clase <- (limite_inferior + limite_superior)/2
+  eje_sencillo <- numeric()
+  total_eje_sencillo <- df$eje_sencillo %>% sum() # Para calcular el porcentaje
+  sencillo_porc <- double()
+  
+  eje_doble <- numeric()
+  total_eje_doble <- df$eje_doble %>% sum()
+  doble_porc <- double()
+  
+  eje_tandem <- numeric()
+  total_eje_tandem <- df$eje_tandem %>% sum()
+  tandem_porc <- double()
+  
+  eje_tridem <- numeric()
+  total_eje_tridem <- df$eje_tridem %>% sum()
+  tridem_porc <- double()
+  
+  for(i in 1:length((limite_inferior)-1)){
+    #conteo para eje sencillo
+    condicion_peso_sencillo <- df$gvw_ton_sencillo > limite_inferior[i] & df$gvw_ton_sencillo <= limite_superior[i]
+    
+    eje_sencillo[i] <- df[condicion_peso_sencillo, ]$eje_sencillo %>% sum()
+    sencillo_porc[i] <- (eje_sencillo[i] / total_eje_sencillo) * 100
+    
+    #conteo para eje doble
+    condicion_peso_doble <- df$gvw_ton_doble > limite_inferior[i] & df$gvw_ton_doble <= limite_superior[i]
+    eje_doble[i]  <- df[condicion_peso_doble, ]$eje_doble %>% sum()
+    doble_porc[i] <- (eje_doble[i] / total_eje_doble) * 100
+    
+    #conteo para eje tandem
+    condicion_peso_tandem <- df$gvw_ton_tandem > limite_inferior[i] & df$gvw_ton_tandem <= limite_superior[i]
+    eje_tandem[i] <- df[condicion_peso_tandem, ]$eje_tandem %>% sum()
+    tandem_porc[i] <- (eje_tandem[i] / total_eje_tandem) * 100
+    
+    #conteo para eje tridem
+    condicion_peso_tridem <- df$gvw_ton_tridem > limite_inferior[i] & df$gvw_ton_tridem <= limite_superior[i]
+    eje_tridem[i]  <- df[condicion_peso_tridem, ]$eje_tridem %>% sum()
+    tridem_porc[i] <- (eje_tridem[i] / total_eje_tridem) * 100 
+  }
+  
+  df_tipo_eje <- data.frame("Limite_Inferior_Ton" = limite_inferior, "Marca_de_Clase_Ton" = marca_de_clase, 
+                            "Limite_Superior_Ton" = limite_superior, "Sencillo" = eje_sencillo, 
+                            "sencillo_porcentaje" = round(sencillo_porc, 3), "doble" = eje_doble, 
+                            "doble_porcentaje" = round(doble_porc, 3), "tandem" = eje_tandem, 
+                            "tandem_porcentaje" = round(tandem_porc, 3), "tridem" = eje_tridem, 
+                            "tridem_porcentaje" = round(tridem_porc, 3))
+  
+  head(df_tipo_eje)
+  
+  df_sencillo <- df_tipo_eje[c("Limite_Inferior_Ton", "Marca_de_Clase_Ton",
+                               "Limite_Superior_Ton", "Sencillo", 
+                               "sencillo_porcentaje")]
+  
+  df_sencillo <- df_sencillo[df_sencillo$Sencillo != 0,]
+  
+  
+  
+  df_doble <- df_tipo_eje[c("Limite_Inferior_Ton", "Marca_de_Clase_Ton",
+                            "Limite_Superior_Ton", "doble", 
+                            "doble_porcentaje")]
+  
+  df_doble <- df_doble[df_doble$doble != 0,]
+  
+  
+  df_tandem <- df_tipo_eje[c("Limite_Inferior_Ton", "Marca_de_Clase_Ton",
+                             "Limite_Superior_Ton", "tandem", 
+                             "tandem_porcentaje")]
+  df_tandem <- df_tandem[df_tandem$tandem != 0,]
+  
+  
+  df_tridem <- df_tipo_eje[c("Limite_Inferior_Ton", "Marca_de_Clase_Ton",
+                             "Limite_Superior_Ton", "tridem", 
+                             "tridem_porcentaje")]
+  
+  df_tridem <- df_tridem[df_tridem$tridem != 0,]
+  
+  
+  list_of_data_frame <- list(df_sencillo = df_sencillo, df_tandem = df_tandem, df_tridem = df_tridem, df_doble = df_doble)
+  
+  return(list_of_data_frame)
+  
+  
+  
+}
