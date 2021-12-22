@@ -2,7 +2,7 @@
 \alias{convierte_a_toneladas}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Convierte a toneladas
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
