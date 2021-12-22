@@ -2,7 +2,7 @@
 \alias{convierte_a_metros}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Convierte a metros
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
