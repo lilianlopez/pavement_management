@@ -5,7 +5,7 @@
 Concatena archivos
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+concatena archivos csv 
 }
 \usage{
 concatena_archivos(x)
@@ -13,7 +13,7 @@ concatena_archivos(x)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
+la ruta hacia donde estan los archivos csv
 }
 }
 \details{
