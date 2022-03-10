@@ -2,3 +2,5 @@ Package: pavementmanagement
 Type: Package
 Title: Pavement Management
 Version: 0.0.1
+Imports: tidyverse, writexl
+
