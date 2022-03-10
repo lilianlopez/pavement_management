@@ -393,9 +393,7 @@ cuenta_ejes <- function(df){
 genera_espectros <- function(df){
   
   peso_maximo <- ceiling(df$gvw %>% max(na.rm = FALSE))
-  print(getwd())
-  print(peso_maximo)
-  
+ 
   limite_inferior <- seq(0,peso_maximo-1)
   limite_superior <- seq(1,peso_maximo)
   marca_de_clase <- (limite_inferior + limite_superior)/2
