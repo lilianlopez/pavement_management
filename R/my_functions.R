@@ -480,3 +480,17 @@ genera_espectros <- function(df){
   
   
 }
+
+exporta_espectros <- function(list) {
+    secuencia_lista <- seq(1, list %>% length())
+    for (elemento in secuencia_lista){
+      nombre <- list[elemento] %>% names()
+      write.csv(list[elemento], paste0("./", nombre, ".csv"))
+      writexl::write_xlsx(list[elemento], paste0("./", nombre, ".xlsx"))
+      
+      return("terminado")
+      
+    }
+    
+}
+
